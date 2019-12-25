@@ -39,25 +39,5 @@ public class EmployeeResource {
 		return employeeRepo.findById(id);
 	}
 	
-	/*
-	 * @RequestMapping("/employees/highsalary") public Employee
-	 * getHighestSalariedEmp() {
-	 * 
-	 * returnemployeeRepo.findByName("Basavesh"); }
-	 */
-	
-	@RequestMapping("/employees/greaterthan/{salary}")
-	public List<Employee> getempSalaryGreaterThan(@PathVariable("salary") int salary) {
-		
-		
-		return employeeRepo.findBySalaryGreatherThan(salary);
-	}
-	
-	
-	
-	
-	
-	
-	
 	
 }
