@@ -4,7 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,6 +18,13 @@ public class EmployeeResource {
 
 	@Autowired
 	EmployeeRepo employeeRepo;
+	
+	
+	@RequestMapping("/addemployee")
+	public Employee addOneEmp(@RequestBody Employee emp) {
+
+		return employeeRepo.save(emp);
+	}
 	
 	@RequestMapping("/addemployees")
 	public void addEmployee() {
@@ -30,8 +41,11 @@ public class EmployeeResource {
 	}
 	
 	@RequestMapping("/employees")
-	public List<Employee> getAll(){
-		return employeeRepo.findAll();
+	public ResponseEntity<List<Employee>> getAll(){
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("ResponseName", "get all employees");
+		return new ResponseEntity<List<Employee>>(employeeRepo.findAll(), headers, HttpStatus.OK);
+		
 	}
 	
 	@RequestMapping("/employees/{id}")
